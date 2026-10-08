@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Allocations{% endblock %}
+{% block heading %}Allocation Management{% endblock %}
+{% block content %}
+<div class="toolbar"><form class="search" method="get"><input name="q" value="{{ q }}" placeholder="Search student, room or status"><button>Search</button></form><a class="btn success" href="{{ url_for('allocate_room') }}">+ Allocate Room</a></div>
+<div class="panel"><div class="table-wrap"><table>
+<thead><tr><th>ID</th><th>Student ID</th><th>Student</th><th>Room</th><th>Block</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+<tbody>{% for a in allocations %}<tr><td>{{ a.allocation_id }}</td><td>{{ a.student_id }}</td><td>{{ a.name }}</td><td>{{ a.room_number }}</td><td>{{ a.block }}</td><td>{{ a.allocation_date }}</td><td><span class="badge {{ a.status|lower }}">{{ a.status }}</span></td>
+<td class="actions">{% if a.status == 'Active' %}<a class="btn small secondary" href="{{ url_for('change_allocation', id=a.allocation_id) }}">Change Room</a><form method="post" action="{{ url_for('cancel_allocation', id=a.allocation_id) }}" onsubmit="return confirmDelete('allocation')"><button class="btn small danger">Cancel</button></form>{% else %}<span class="muted">No actions</span>{% endif %}</td></tr>
+{% else %}<tr><td colspan="8"><div class="empty">No allocations found.</div></td></tr>{% endfor %}</tbody>
+</table></div></div>
+{% endblock %}

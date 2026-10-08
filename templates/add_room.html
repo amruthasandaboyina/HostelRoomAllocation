@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Add Room{% endblock %}
+{% block heading %}Add Room{% endblock %}
+{% block content %}
+<div class="form-card"><form method="post" onsubmit="return validateRoomForm()">
+<div class="form-grid">
+<label>Room Number<input name="room_number" value="{{ room.room_number if room else '' }}" required></label>
+<label>Block<input name="block" value="{{ room.block if room else '' }}" required></label>
+<label>Floor<input type="number" name="floor" min="0" value="{{ room.floor if room else '' }}" required></label>
+<label>Capacity<input type="number" name="capacity" min="1" value="{{ room.capacity if room else '' }}" required></label>
+</div>
+<div class="form-actions"><a class="btn secondary" href="{{ url_for('rooms') }}">Cancel</a><button class="btn primary">Add Room</button></div>
+</form></div>
+{% endblock %}

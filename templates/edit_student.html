@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Edit Student{% endblock %}
+{% block heading %}Edit Student{% endblock %}
+{% block content %}
+<div class="form-card"><form method="post" onsubmit="return validateStudentForm()">
+<div class="form-grid">
+<label>Student ID<input type="number" name="student_id" value="{{ student.student_id if student else '' }}" {{ 'readonly' if student else '' }} required></label>
+<label>Name<input name="name" value="{{ student.name if student else '' }}" required></label>
+<label>Gender<select name="gender" required><option value="">Select</option><option {{ 'selected' if student and student.gender=='Male' else '' }}>Male</option><option {{ 'selected' if student and student.gender=='Female' else '' }}>Female</option><option {{ 'selected' if student and student.gender=='Other' else '' }}>Other</option></select></label>
+<label>Course<input name="course" value="{{ student.course if student else '' }}" required></label>
+<label>Year<input type="number" name="year" min="1" max="6" value="{{ student.year if student else '' }}" required></label>
+<label>Phone<input name="phone" maxlength="15" value="{{ student.phone if student else '' }}" required></label>
+<label class="full">Email<input type="email" name="email" value="{{ student.email if student else '' }}" required></label>
+</div>
+<div class="form-actions"><a class="btn secondary" href="{{ url_for('students') }}">Cancel</a><button class="btn primary">Edit Student</button></div>
+</form></div>
+{% endblock %}

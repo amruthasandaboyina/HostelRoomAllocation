@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block heading %}Dashboard{% endblock %}
+{% block content %}
+<div class="cards">
+    <div class="card"><span>👨‍🎓</span><div><small>Total Students</small><strong>{{ stats.total_students }}</strong></div></div>
+    <div class="card"><span>🏢</span><div><small>Total Rooms</small><strong>{{ stats.total_rooms }}</strong></div></div>
+    <div class="card"><span>🟢</span><div><small>Available Rooms</small><strong>{{ stats.available_rooms }}</strong></div></div>
+    <div class="card"><span>🔴</span><div><small>Full Rooms</small><strong>{{ stats.full_rooms }}</strong></div></div>
+    <div class="card"><span>📋</span><div><small>Active Allocations</small><strong>{{ stats.active_allocations }}</strong></div></div>
+</div>
+
+<div class="quick-actions">
+    <a class="btn primary" href="{{ url_for('add_student') }}">+ Add Student</a>
+    <a class="btn secondary" href="{{ url_for('add_room') }}">+ Add Room</a>
+    <a class="btn success" href="{{ url_for('allocate_room') }}">Allocate Room</a>
+</div>
+
+<div class="panel">
+    <div class="panel-head"><h2>Recent Allocations</h2><a href="{{ url_for('allocations') }}">View all</a></div>
+    {% if recent %}
+    <div class="table-wrap"><table><thead><tr><th>ID</th><th>Student</th><th>Room</th><th>Block</th><th>Date</th><th>Status</th></tr></thead>
+    <tbody>{% for a in recent %}<tr><td>{{ a.allocation_id }}</td><td>{{ a.name }}</td><td>{{ a.room_number }}</td><td>{{ a.block }}</td><td>{{ a.allocation_date }}</td><td><span class="badge {{ a.status|lower }}">{{ a.status }}</span></td></tr>{% endfor %}</tbody></table></div>
+    {% else %}<div class="empty">No allocations found.</div>{% endif %}
+</div>
+{% endblock %}

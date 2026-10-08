@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Change Room{% endblock %}
+{% block heading %}Change Room Allocation{% endblock %}
+{% block content %}
+<div class="form-card"><div class="allocation-summary"><strong>{{ allocation.name }}</strong><span>Current room: {{ allocation.room_number }} ({{ allocation.block }})</span></div>
+<form method="post"><label>New Room<select name="room_id" required><option value="">Select new room</option>{% for r in rooms %}<option value="{{ r.room_id }}" {{ 'selected' if r.room_id == allocation.room_id else '' }}>{{ r.room_number }} ({{ r.block }}) — {{ r.available }} available</option>{% endfor %}</select></label>
+<div class="form-actions"><a class="btn secondary" href="{{ url_for('allocations') }}">Cancel</a><button class="btn primary">Change Room</button></div></form></div>
+{% endblock %}

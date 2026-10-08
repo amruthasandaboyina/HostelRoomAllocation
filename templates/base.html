@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Hostel Room Allocation{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="app">
+    <aside class="sidebar">
+        <div class="brand"><span>🏠</span><div>Hostel<br><small>Allocation System</small></div></div>
+        <nav>
+            <a href="{{ url_for('index') }}">Dashboard</a>
+            <a href="{{ url_for('students') }}">Students</a>
+            <a href="{{ url_for('rooms') }}">Rooms</a>
+            <a href="{{ url_for('allocate_room') }}">Allocate Room</a>
+            <a href="{{ url_for('allocations') }}">Allocations</a>
+        </nav>
+    </aside>
+    <main class="main">
+        <header class="topbar">
+            <div>
+                <h1>{% block heading %}Hostel Room Allocation System{% endblock %}</h1>
+                <p>DBMS Laboratory Project</p>
+            </div>
+            <div class="admin">Administrator</div>
+        </header>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-area">
+            {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <section class="content">{% block content %}{% endblock %}</section>
+    </main>
+</div>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

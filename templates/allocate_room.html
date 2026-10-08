@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Allocate Room{% endblock %}
+{% block heading %}Allocate Room{% endblock %}
+{% block content %}
+<div class="form-card"><form method="post" onsubmit="return validateAllocationForm()">
+<div class="form-grid">
+<label>Student<select name="student_id" required><option value="">Select student</option>{% for s in students %}<option value="{{ s.student_id }}">{{ s.student_id }} - {{ s.name }}</option>{% endfor %}</select></label>
+<label>Room<select name="room_id" required><option value="">Select available room</option>{% for r in rooms %}<option value="{{ r.room_id }}">{{ r.room_number }} ({{ r.block }}) — {{ r.available }} available</option>{% endfor %}</select></label>
+<label>Allocation Date<input type="date" name="allocation_date" value="{{ today }}" required></label>
+</div>
+{% if not students %}<div class="notice warning">No students are currently available for allocation.</div>{% endif %}
+{% if not rooms %}<div class="notice warning">No rooms have available capacity.</div>{% endif %}
+<div class="form-actions"><a class="btn secondary" href="{{ url_for('index') }}">Cancel</a><button class="btn success" {% if not students or not rooms %}disabled{% endif %}>Allocate Room</button></div>
+</form></div>
+{% endblock %}
